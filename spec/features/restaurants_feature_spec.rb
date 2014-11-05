@@ -35,7 +35,7 @@ end
 context 'creating restaurants' do
 
   it 'prompts user to fill out a form, then displays the new restaurant' do
-    visit '/restaurants'
+    visit '/'
     click_link 'Add a restaurant'
     fill_in 'Name', with: 'KFC'
     click_button 'Create Restaurant'
