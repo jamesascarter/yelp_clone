@@ -35,13 +35,3 @@ context 'user signed in on the homepage' do
     expect(page).not_to have_link('Sign up')
   end
 end
-
-context 'user can only ' do
-
- it 'should check if a user is logged in before creating restaurants' do
-    visit('/')
-    click_link('Add a restaurant')
-    expect(page).to have_content('You need to sign in or sign up before continuing.')
-  end
-
-end

@@ -28,9 +28,13 @@ gem 'spring',        group: :development
 
 gem 'rspec-rails', group: :test
 gem 'capybara', group: :test
+gem 'launchy'
 gem 'rspec-collection_matchers', group: :test
 gem 'devise'
 gem 'omniauth-facebook'
+gem 'cancan'
+gem 'warden'
+gem 'database_cleaner'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

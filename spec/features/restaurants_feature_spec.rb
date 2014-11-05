@@ -55,7 +55,7 @@ end
 
   context 'viewing restaurants' do
 
-    before do
+  before do
       @kfc = Restaurant.create(name: 'KFC')
     end
 
@@ -67,33 +67,34 @@ end
   end
 end
 
-  context 'editing restaurants' do
+end
 
-    before do
-      Restaurant.create(name:'KFC')
-    end
-
-    it 'lets a user edit a restaurant' do
-      visit '/restaurants'
-      click_link 'Edit KFC'
-      fill_in 'Name', with: 'Kentucky Fried Chicken'
-      click_button 'Update Restaurant'
-      expect(page).to have_content 'Kentucky Fried Chicken'
-      expect(current_path).to eq '/restaurants'
-    end
-  end
-
-context 'deleting restaurants' do
+describe 'deleting restaurants' do
 
   before do
-    Restaurant.create(:name => "KFC")
+      @james = User.create(email: 'james@gmail.com', password:'11111111', password_confirmation:'11111111')
+      @james.restaurants.create(name: 'KFC')
   end
 
   it "removes a restaurant when a user clicks a delete link" do
-    visit '/restaurants'
+    login_as @james
+    visit '/'
     click_link 'Delete KFC'
     expect(page).not_to have_content 'KFC'
     expect(page).to have_content 'Restaurant deleted successfully'
   end
+
+
+
+  it 'lets a user edit a restaurant' do
+    login_as @james
+    visit '/'
+    click_link 'Edit KFC'
+    fill_in 'Name', with: 'Kentucky Fried Chicken'
+    click_button 'Update Restaurant'
+    expect(page).to have_content 'Kentucky Fried Chicken'
+    expect(current_path).to eq '/restaurants'
+  end
 end
-end
+
+
