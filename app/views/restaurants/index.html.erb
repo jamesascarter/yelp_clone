@@ -8,6 +8,9 @@
     <% restaurant.reviews.each do |review| %>
     <li>
       <%= review.thoughts %>, <strong><%= review.rating %></strong>/5
+      <% if current_user == review.user %>
+      <%= link_to "Delete review", restaurant_review_path(restaurant, :id => review.id), method: :delete %>
+      <% end %>
     </li>
     <% end %>
   </ul>
@@ -15,7 +18,8 @@
   <p>No reviews.</p>
 <% end %>
       <% unless restaurant.has_review(current_user) %>
-        <h3>  <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %> </h3>
+        <h3>  <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %>
+         </h3>
       <% end %>
   <%if current_user == restaurant.user %>
          <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
