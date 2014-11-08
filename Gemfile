@@ -35,6 +35,10 @@ gem 'omniauth-facebook'
 gem 'cancan'
 gem 'warden'
 gem 'database_cleaner'
+gem 'poltergeist', group: :test
+gem 'paperclip'
+gem 'aws-sdk'
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

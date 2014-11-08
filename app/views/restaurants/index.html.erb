@@ -1,30 +1,44 @@
 <% if @restaurants.any? %>
+
   <% @restaurants.each do |restaurant| %>
-    <h2> <%= link_to "#{restaurant.name}", restaurant_path(restaurant) %></h2>
+    <h2> <%= link_to "#{restaurant.name}", restaurant_path(restaurant) %>
+   <%= image_tag restaurant.image.url(:thumb) %>
+    </h2>
     <h3> Average rating: <%= star_rating(restaurant.average_rating) %></h3>
+
     <h4>Reviews for <%= restaurant.name %></h4>
-<% if restaurant.reviews.any? %>
+  <% if restaurant.reviews.any? %>
   <ul>
     <% restaurant.reviews.each do |review| %>
     <li>
+
       <%= review.thoughts %>, <strong><%= review.rating %></strong>/5
-      <% if current_user == review.user %>
-      <%= link_to "Delete review", restaurant_review_path(restaurant, :id => review.id), method: :delete %>
-      <% end %>
+      <%= link_to "Endorse", review_endorsements_path(review), class: 'endorsements-link' %>
+      <span class="endorsements_count"> <%= review.endorsements.count %> </span> endorsements
+
+
+  <% if current_user == review.user %>
+      <%= link_to "Delete review", review_path(restaurant, :id => review.id), method: :delete %>
+  <% end %>
+
     </li>
     <% end %>
   </ul>
-<% else %>
+  <% else %>
   <p>No reviews.</p>
-<% end %>
-      <% unless restaurant.has_review(current_user) %>
-        <h5>  <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %>
-         </h5>
-      <% end %>
+  <% end %>
+
+
+  <% unless restaurant.has_review(current_user) %>
+      <h5>  <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %></h5>
+  <% end %>
+
   <%if current_user == restaurant.user %>
          <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
          <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
-    <% end %>
+  <% end %>
+
+
   <% end %>
 <% else %>
   No restaurants yet
